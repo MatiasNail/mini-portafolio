@@ -2,18 +2,19 @@ import { Link } from "react-router-dom";
 
 export default function Inicio() {
   return (
-    <section aria-labelledby="titulo-inicio">
-        <h1 id="titulo-inicio">
-            Hola, soy Matias!
+    <section className="panel" aria-labelledby="titulo-inicio">
+      <div className="panel__body">
+        <h1 id="titulo-inicio" className="panel__title">
+          Hola, soy Matias!
         </h1>
-        <p>Desarrollador de Frontend</p>
+        <p className="panel__subtitle">Desarrollador de Frontend</p>
         <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus sed dolores accusantium incidunt quia non eaque nihil animi minus cupiditate, molestiae dolor officiis odit, pariatur fugit voluptas voluptates quibusdam? Quae!
+            Bienvenido/a a mi Portafolio. Aqui puedes encontrar mis proyectos y conocer más de mi.
         </p>
-
-        <Link to="/sobre-mi" className="btn-primary">
-        Explorar portafolio
+        <Link to="/sobre-mi" className="button button--primary">
+          Explorar portafolio
         </Link>
+      </div>
     </section>
   );
 }

@@ -1,15 +1,21 @@
-export default function TarjetaProyecto({ titulo, descripcion, enlace}) {
+export default function TarjetaProyecto({ titulo, descripcion, enlace }) {
     return (
-        <article className="card-proyecto">
-            <h3>{titulo}</h3>
-            <p>{descripcion}</p>
+        <article className="project-card">
+            <h3 className="project-card__title">{titulo}</h3>
+            <p className="project-card__description">{descripcion}</p>
 
             {enlace ? (
-                <a href={enlace} target="_blank" rel="noopener noreferrer" aria-label={`Ver proyecto ${titulo} en GitHub (se abre en nueva pestaña)`}>
+                <a
+                    href={enlace}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-card__link"
+                    aria-label={`Ver proyecto ${titulo} en GitHub (se abre en nueva pestaña)`}
+                >
                     Ver proyecto
                 </a>
             ) : (
-                <p className="sin-enlace">Repositorio no disponible</p>
+                <p className="project-card__status">Repositorio no disponible</p>
             )}
         </article>
     );

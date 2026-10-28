@@ -19,7 +19,7 @@ const PROYECTOS = [
         descripcion: 'proyecto web para practicar HTML y CSS',
         enlace: 'https://github.com/MatiasNail/P-gina-serie-fav.git'
     },
-        {
+    {
         id: 'proyecto-4',
         titulo: 'Plantilla React Desplegada',
         descripcion: 'Despliegue de plantilla react como primer acercamiento a la tecnologia',
@@ -29,14 +29,21 @@ const PROYECTOS = [
 
 export default function Proyectos() {
   return (
-    <section aria-labelledby="titulo-proyectos">
+    <section className="panel" aria-labelledby="titulo-proyectos">
+      <div className="panel__body">
         <h1 id="titulo-proyectos">Mis Proyectos</h1>
 
-        <div className="proyectos-grid">
-            {PROYECTOS.map((proyecto) => (
-                <TarjetaProyecto key={proyecto.id} titulo={proyecto.titulo} descripcion={proyecto.descripcion} enlace={proyecto.enlace}/>
-        ))}
+        <div className="projects__grid">
+          {PROYECTOS.map((proyecto) => (
+            <TarjetaProyecto
+              key={proyecto.id}
+              titulo={proyecto.titulo}
+              descripcion={proyecto.descripcion}
+              enlace={proyecto.enlace}
+            />
+          ))}
         </div>
+      </div>
     </section>
   );
 }
