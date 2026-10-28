@@ -233,3 +233,155 @@ git add .
 git commit -m "feat: página Proyectos con TarjetaProyecto"
 git push
 ¿Lograste ver las tarjetas con sus props en pantalla? Avísame si te aparece algún aviso de ESLint para solucionarlo antes de pasar a la Fase 7 (Formulario de contacto con estado).
+
+prompt: pasé al 7 
+
+resultado:
+La Fase 7 (Formulario de contacto con estado) es el módulo más exigente de la pauta. Para mantener el código limpio y accesible, implementaremos tres estados con useState: uno para los campos del formulario, otro para los mensajes de error y un tercero para la confirmación de envío.   Paso 1: Crear el componente src/components/FormularioContacto.jsxCriterios de accesibilidad y buenas prácticas:Vinculación <label> e <input>: Usamos htmlFor e id idénticos para asociar cada etiqueta con su campo correspondiente.   Atributo noValidate: Desactiva la validación por defecto del navegador para renderizar nuestros propios mensajes estilizados y accesibles.   Atributos ARIA de accesibilidad (WCAG 2.2):aria-invalid: Notifica a los lectores de pantalla si un campo contiene un error.aria-describedby: Enlaza el input con el elemento <span> que contiene su mensaje de error.role="alert": Anuncia dinámicamente los errores y el mensaje de confirmación cuando aparecen en pantalla.JavaScriptimport { useState } from 'react';
+
+export default function FormularioContacto() {
+  // 1. Estado para capturar los datos de los campos
+  const [formData, setFormData] = useState({
+    nombre: '',
+    correo: '',
+    mensaje: ''
+  });
+
+  // 2. Estado para los mensajes de error
+  const [errores, setErrores] = useState({});
+
+  // 3. Estado para la confirmación de envío
+  const [enviado, setEnviado] = useState(false);
+
+  // Manejador único onChange utilizando el atributo 'name' del input
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  // Función de validación
+  const validarFormulario = () => {
+    const nuevosErrores = {};
+
+    if (!formData.nombre.trim()) {
+      nuevosErrores.nombre = 'El nombre es obligatorio.';
+    }
+
+    if (!formData.correo.trim()) {
+      nuevosErrores.correo = 'El correo electrónico es obligatorio.';
+    } else if (!/\S+@\S+\.\S+/.test(formData.correo)) {
+      nuevosErrores.correo = 'Ingresa un formato de correo válido (ej: usuario@dominio.com).';
+    }
+
+    if (!formData.mensaje.trim()) {
+      nuevosErrores.mensaje = 'El mensaje no puede estar vacío.';
+    }
+
+    return nuevosErrores;
+  };
+
+  // Manejador de submit
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Evita recargar la página
+
+    const erroresDetectados = validarFormulario();
+
+    if (Object.keys(erroresDetectados).length > 0) {
+      setErrores(erroresDetectados);
+      setEnviado(false);
+    } else {
+      setErrores({});
+      setEnviado(true);
+      // Limpiar los campos tras un envío exitoso
+      setFormData({ nombre: '', correo: '', mensaje: '' });
+    }
+  };
+
+  return (
+    <div className="formulario-container">
+      {enviado && (
+        <p className="mensaje-exito" role="alert">
+          ¡Gracias por tu mensaje! Nos pondremos en contacto pronto.
+        </p>
+      )}
+
+      <form onSubmit={handleSubmit} noValidate>
+        <div className="form-group">
+          <label htmlFor="nombre">Nombre:</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            aria-invalid={!!errores.nombre}
+            aria-describedby={errores.nombre ? 'error-nombre' : undefined}
+          />
+          {errores.nombre && (
+            <span id="error-nombre" className="error-text" role="alert">
+              {errores.nombre}
+            </span>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="correo">Correo electrónico:</label>
+          <input
+            type="email"
+            id="correo"
+            name="correo"
+            value={formData.correo}
+            onChange={handleChange}
+            aria-invalid={!!errores.correo}
+            aria-describedby={errores.correo ? 'error-correo' : undefined}
+          />
+          {errores.correo && (
+            <span id="error-correo" className="error-text" role="alert">
+              {errores.correo}
+            </span>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="mensaje">Mensaje:</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="5"
+            value={formData.mensaje}
+            onChange={handleChange}
+            aria-invalid={!!errores.mensaje}
+            aria-describedby={errores.mensaje ? 'error-mensaje' : undefined}
+          />
+          {errores.mensaje && (
+            <span id="error-mensaje" className="error-text" role="alert">
+              {errores.mensaje}
+            </span>
+          )}
+        </div>
+
+        <button type="submit" className="btn-submit">
+          Enviar mensaje
+        </button>
+      </form>
+    </div>
+  );
+}
+Paso 2: Renderizar en src/pages/Contacto.jsxImporta el componente recién creado en la vista de contacto:   JavaScriptimport FormularioContacto from '../components/FormularioContacto';
+
+export default function Contacto() {
+  return (
+    <section aria-labelledby="titulo-contacto">
+      <h1 id="titulo-contacto">Contacto</h1>
+      <p>¿Tienes alguna consulta o propuesta? Puedes escribirme mediante el siguiente formulario:</p>
+      <FormularioContacto />
+    </section>
+  );
+}
+Pruebas de verificación obligatoriasRealiza los siguientes tres escenarios de prueba en tu navegador antes de guardar cambios:   Campos vacíos: Haz clic en "Enviar mensaje" sin escribir nada. Deben aparecer los tres mensajes de error.   Formato de correo inválido: Escribe tu nombre, en correo pon sólo hola y escribe un mensaje. Al presionar enviar, solo el campo de correo debe mostrar error.   Datos correctos: Completa los 3 campos adecuadamente y envía. Debe aparecer el mensaje de éxito en verde y limpiarse los campos.   Registro en Git (Commit de la Fase 7)Una vez completadas y validadas las tres pruebas:   Bashgit add .
+git commit -m "feat: formulario de contacto con validacion"
+git push
+¿Pudiste probar los tres casos de validación en pantalla sin inconvenientes? Cuando estés listo, continuamos con la Fase 8 (Estilos en CSS).
