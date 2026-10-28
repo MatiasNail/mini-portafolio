@@ -385,3 +385,282 @@ Pruebas de verificación obligatoriasRealiza los siguientes tres escenarios de p
 git commit -m "feat: formulario de contacto con validacion"
 git push
 ¿Pudiste probar los tres casos de validación en pantalla sin inconvenientes? Cuando estés listo, continuamos con la Fase 8 (Estilos en CSS).
+
+prompt: me gustaría para la estilización algo inspirado en el wireframe pero con color de fondo blanco y azul marino para footer y la navbar
+
+resultado:
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --border-color: #e2e8f0;
+  --navy-dark: #0f172a;
+  --navy-hover: #1e293b;
+  --navy-light-active: #38bdf8;
+  --text-primary: #0f172a;
+  --text-muted: #475569;
+  --text-light: #ffffff;
+  --text-light-muted: #cbd5e1;
+  --color-error: #dc2626;
+  --color-success: #16a34a;
+  --max-width: 1000px;
+  --radius: 8px;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.panel {
+  background: #edf2f7;
+  border: 1px solid #dfe7f1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.panel__body {
+  padding: 1.5rem;
+}
+
+.panel__subtitle {
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.site-header {
+  width: 100%;
+  background-color: var(--navy-dark);
+  color: var(--text-light);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.18);
+}
+
+.site-header__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.15rem 1.5rem;
+  display: flex;
+  align-items: center;
+  min-height: 90px;
+}
+
+.site-header__nav {
+  width: 100%;
+}
+
+.site-header__list {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.site-header__link {
+  color: var(--text-light-muted);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.site-header__link:hover {
+  color: var(--text-light);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.site-header__link--active {
+  color: var(--text-light);
+  font-weight: 700;
+  border-bottom: 2px solid var(--navy-light-active);
+}
+
+footer {
+  width: 100%;
+  background-color: var(--navy-dark);
+  color: var(--text-light-muted);
+  text-align: center;
+  padding: 1.1rem 1rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
+
+h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+  color: var(--navy-dark);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--navy-dark);
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--navy-dark);
+}
+
+.projects__grid,
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.project-card,
+.skills__item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.skills__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.skills__tool {
+  background-color: #e2e8f0;
+  color: var(--text-primary);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.contact-form {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  border-radius: var(--radius);
+  max-width: 650px;
+  margin-top: 1.5rem;
+}
+
+.contact-form__group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact-form__label {
+  font-weight: 600;
+  color: var(--navy-dark);
+}
+
+.contact-form__field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.contact-form__field[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.contact-form__error {
+  color: var(--color-error);
+  font-size: 0.875rem;
+}
+
+.contact-form__success {
+  background-color: rgba(22, 163, 74, 0.1);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.button,
+.project-card__link {
+  display: inline-block;
+  background-color: var(--navy-dark);
+  color: var(--text-light);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
+  margin-top: 1rem;
+}
+
+.button:hover,
+.project-card__link:hover,
+.button:focus-visible,
+.project-card__link:focus-visible {
+  background-color: var(--navy-hover);
+}
+
+:focus-visible {
+  outline: 3px solid var(--navy-light-active);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .site-header__list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
